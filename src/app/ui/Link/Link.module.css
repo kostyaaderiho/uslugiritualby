@@ -1,0 +1,13 @@
+.link {
+    text-decoration: none;
+    background-color: var(--branding-green);
+    padding: 8px;
+    color: #fff;
+    border-radius: 6px;
+    text-align: center;
+    display: inline-block;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

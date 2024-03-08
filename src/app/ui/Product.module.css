@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    padding: 16px;
+    gap: 16px;
+    flex-direction: column;
+}
+
+.info {
+    width: 100%;
+}
+
+.skeletonInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+@media (min-width: 1024px) {
+    .info {
+        width: 50%;
+    }
+
+    .container {
+        flex-direction: row;
+    }
+}
+
+.sizes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.size {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: var(--branding-green);
+}
+
+.price {
+    color: var(--branding-green);
+    text-align: right;
+}

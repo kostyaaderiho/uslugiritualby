@@ -1,0 +1,23 @@
+.swiper {
+    width: 480px;
+}
+
+.swiper-button {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+}
+
+.swiper-navigation {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: 32px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,30 @@
+.footer {
+    border-top: 1px solid #e6e8eb;
+    margin-top: 80px;
+    color: #fff;
+}
+
+.inner {
+    display: flex;
+    padding: 24px 16px;
+    flex-direction: column;
+
+    @media (min-width: 840px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.info {
+    color: #484b5c;
+    margin-top: 24px;
+
+    @media (min-width: 840px) {
+        margin-top: 0;
+        max-width: 320px;
+    }
+}
+
+.info:first-child {
+    margin-top: 0;
+}
