@@ -1,0 +1,60 @@
+.avatarLarge {
+    font-size: 60px;
+    line-height: 80px;
+}
+
+.headline1 {
+    font-size: 56px;
+    line-height: 68px;
+}
+
+.headline2 {
+    font-size: 32px;
+    line-height: 48px;
+}
+
+.headline3 {
+    font-size: 26px;
+    line-height: 40px;
+}
+
+.headline4 {
+    font-size: 20px;
+    line-height: 32px;
+}
+
+.body1 {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.body2 {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.microcopy {
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.avatarText {
+    font-size: 10px;
+    line-height: 16px;
+}
+
+.light {
+    font-weight: 300;
+}
+
+.regular {
+    font-weight: 500;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.slab-bold {
+    font-weight: 900;
+}

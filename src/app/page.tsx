@@ -1,95 +1,135 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Suspense } from 'react';
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+import { ProductsLoading } from './ui/Products/ProductsLoading';
+import { getWreaths, getMonuments, getEls } from './api/contentful';
+import { Products, Product } from './ui/Products';
+import { Link } from './ui/Link';
+import { isResponseError } from './types';
+import { Typography } from './ui/theme';
+import { PageTitle } from './ui/PageTitle';
+
+// Force page to be dynamic as we fetch dynamic data from CSM.
+// See API docs - https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+export const dynamic = 'force-dynamic';
+
+const Feed = ({
+    children,
+    title,
+    moreLink,
+    fallback,
+}: {
+    children: React.ReactNode;
+    title: string;
+    moreLink: string;
+    fallback: React.ReactNode;
+}) => (
+    <>
+        <PageTitle>{title}</PageTitle>
+        <Suspense fallback={fallback}>{children}</Suspense>
+        <div className="text-center py-10">
+            <Link href={moreLink}>Смотреть больше</Link>
         </div>
-      </div>
+    </>
+);
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+const FailedToLoad = () => (
+    <Typography
+        className="text-center w-full"
+        fontType="light"
+        sizeType="body1"
+    >
+        Не удалось подгрузить
+    </Typography>
+);
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+const WreathsFeed = async () => {
+    const response = await getWreaths({ limit: 8 });
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+    if (isResponseError(response)) {
+        return <FailedToLoad />;
+    }
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
+    return (
+        <Products>
+            {response?.items.map((wreath) => (
+                <Product
+                    {...wreath.fields}
+                    href={`/wreaths/${wreath.sys.id}`}
+                    key={wreath.sys.id}
+                    imageWidth={220}
+                    imageHeight={294}
+                />
+            ))}
+        </Products>
+    );
+};
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+const MonumentsFeed = async () => {
+    const response = await getMonuments({ limit: 8 });
+
+    if (isResponseError(response)) {
+        return <FailedToLoad />;
+    }
+
+    return (
+        <Products>
+            {response?.items.map((monument) => (
+                <Product
+                    {...monument.fields}
+                    href={`/monuments/${monument.sys.id}`}
+                    key={monument.sys.id}
+                    imageWidth={220}
+                    imageHeight={220}
+                />
+            ))}
+        </Products>
+    );
+};
+
+const ElsFeed = async () => {
+    const response = await getEls({ limit: 8 });
+
+    if (isResponseError(response)) {
+        return <FailedToLoad />;
+    }
+
+    return (
+        <Products>
+            {response?.items.map((el) => (
+                <Product
+                    {...el.fields}
+                    href={`/els/${el.sys.id}`}
+                    key={el.sys.id}
+                    imageWidth={220}
+                    imageHeight={294}
+                />
+            ))}
+        </Products>
+    );
+};
+
+export default function Page() {
+    return (
+        <>
+            <Feed
+                title={'Венки'}
+                moreLink="wreaths"
+                fallback={<ProductsLoading />}
+            >
+                <WreathsFeed />
+            </Feed>
+
+            <Feed
+                title={'Памятники'}
+                moreLink="monuments"
+                fallback={<ProductsLoading />}
+            >
+                <MonumentsFeed />
+            </Feed>
+
+            <Feed title={'Ель'} moreLink="els" fallback={<ProductsLoading />}>
+                <ElsFeed />
+            </Feed>
+        </>
+    );
 }
