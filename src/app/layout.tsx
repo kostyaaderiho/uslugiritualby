@@ -5,6 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { CenterBlock } from './ui/CenterBlock';
 import { Header } from './ui/Header';
@@ -19,9 +20,9 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-    title: 'Ритуальные венки, каркасы для венков, искусственная ель в городе Могилев',
+    title: 'Ритуальные венки, каркасы для венков, искусственная ель для венков, ритуальные памятники, Беларусь, Минск, Могилев, Витебск, Гродно, Брест, Гомель',
     description:
-        'Ритуальные венки, каркасы для венков, искусственная ель, город Могилев',
+        'Ритуальные венки, каркасы для венков, искусственная ель для венков, ритуальные памятники, Беларусь, Минск, Могилев, Витебск, Гродно, Брест, Гомель',
 };
 
 const RootLayout = ({
@@ -39,6 +40,7 @@ const RootLayout = ({
                 <Footer />
                 <ScrollToTopButton />
             </div>
+            <GoogleAnalytics gaId="G-WNXLFEMH95" />
         </body>
     </html>
 );
