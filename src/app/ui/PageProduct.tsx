@@ -51,7 +51,7 @@ export const PageProduct = ({
                                     alt=""
                                 />
                             </SwiperSlide>
-                        ) : undefined
+                        ) : undefined,
                     )}
                 </Swiper>
             </div>
@@ -83,7 +83,14 @@ export const PageProduct = ({
                 >
                     {price}
                 </Typography>
-                <ContactPhone>Позвонить</ContactPhone>
+                <ContactPhone
+                    phones={[
+                        {
+                            tel: 'tel:+375295401919',
+                            ui: 'Позвонить',
+                        },
+                    ]}
+                />
             </div>
         </div>
     );

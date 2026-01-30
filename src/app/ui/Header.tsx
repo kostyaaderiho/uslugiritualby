@@ -54,7 +54,7 @@ export const DesktopNav = () => {
                             'p-2 font-light rounded-md border-lime-600 border-2 hover:text-white hover:bg-lime-600',
                             {
                                 ['bg-lime-600 text-white']: pathname === href,
-                            }
+                            },
                         )}
                     >
                         {text}
@@ -68,7 +68,18 @@ export const DesktopNav = () => {
                 <Typography sizeType="body2" fontType="light" tagType="p">
                     Самовывоз: г. Могилев, ул. Ушакова 8
                 </Typography>
-                <ContactPhone>+375 (29) 540-19-19</ContactPhone>
+                <ContactPhone
+                    phones={[
+                        {
+                            tel: 'tel:+375295401919',
+                            ui: '+375 (29) 540-19-19',
+                        },
+                        {
+                            tel: 'tel:+375292151717',
+                            ui: '+375 (29) 215-17-17',
+                        },
+                    ]}
+                />
             </div>
         </div>
     );
@@ -137,7 +148,7 @@ export const MobileNav = () => {
                                             {
                                                 ['bg-lime-600 text-white']:
                                                     pathname === href,
-                                            }
+                                            },
                                         )}
                                         href={href}
                                         onClick={onClose}
@@ -172,7 +183,7 @@ export const Header = () => {
                     'border-b-2 border-y-slate-200 w-full bg-white z-50 top-0 sticky',
                     {
                         ['shadow-md shadow-slate-100']: isSticky,
-                    }
+                    },
                 )}
             >
                 <CenterBlock>

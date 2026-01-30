@@ -23,7 +23,18 @@ export const Footer = async () => {
                         <Typography sizeType={'body2'} fontType="light">
                             Время работы: 24/7 <br />
                             Самовывоз: г. Могилев, ул. Ушакова 8 <br />
-                            <ContactPhone>+375 (29) 540-19-19</ContactPhone>
+                            <ContactPhone
+                                phones={[
+                                    {
+                                        tel: 'tel:+375295401919',
+                                        ui: '+375 (29) 540-19-19',
+                                    },
+                                    {
+                                        tel: 'tel:+375292151717',
+                                        ui: '+375 (29) 215-17-17',
+                                    },
+                                ]}
+                            />
                         </Typography>
                     </div>
                 </div>

@@ -1,11 +1,16 @@
 import { Typography, TypographyProps } from './theme/Typography';
 
+type Phone = {
+    tel: string;
+    ui: string;
+};
+
 export type ContactPhoneProps = {
-    children: React.ReactNode;
+    phones: Phone[];
 } & Partial<TypographyProps>;
 
 export const ContactPhone = ({
-    children,
+    phones,
     ...rest
 }: ContactPhoneProps): JSX.Element => (
     <Typography
@@ -15,6 +20,13 @@ export const ContactPhone = ({
         tagType="p"
         {...rest}
     >
-        <a href="tel:+375295401919">{children}</a>
+        {phones.map(({ tel, ui }, index) => (
+            <>
+                <a href={tel} key={tel}>
+                    {ui}
+                </a>
+                {index === phones.length - 1 ? '' : ', '}
+            </>
+        ))}
     </Typography>
 );
